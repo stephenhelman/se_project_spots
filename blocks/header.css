@@ -1,0 +1,45 @@
+.header {
+  margin-top: 46px;
+  height: 210px;
+  margin-bottom: 20px;
+  max-width: 1280px;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.header__container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.header__avatar-section {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  column-gap: 20px;
+}
+
+.header__image {
+  width: 190px;
+  margin-bottom: auto;
+}
+
+.header__info-container {
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header__name,
+.header__description {
+  margin: 0;
+}
+
+.header__new-post-button {
+  align-self: flex-end;
+}

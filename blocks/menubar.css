@@ -1,0 +1,13 @@
+.menubar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 46px;
+}
+
+.menubar__image {
+  width: 94px;
+  height: 26px;
+}
