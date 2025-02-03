@@ -8,49 +8,47 @@
   </head>
   <body>
     <div class="page">
-      <nav class="menubar">
-        <img src="./images/Logo.svg" alt="Spots Logo" class="menubar__image" />
-      </nav>
       <header class="header">
-        <div class="header__container">
-          <div class="header__avatar-section">
-            <img
-              src="./images/avatar.jpg"
-              alt="Bessie Coleman Picture"
-              class="header__image"
-            />
-            <div class="header__info-container">
-              <div class="header__title">
-                <h1 class="header__name">Bessie Coleman</h1>
-                <p class="header__description">Civil Aviator</p>
-              </div>
-
-              <button type="button" class="header__edit-button">
-                <img
-                  src="./images/pencil.svg"
-                  alt="pencil icon"
-                  class="header__edit-pencil"
-                />
-                Edit Profile
-              </button>
-            </div>
-          </div>
-          <button class="header__new-post-button">
-            <img
-              src="./images/Plus.svg"
-              alt="Plus Icon"
-              class="header__new-plus"
-            />
-            New Post
-          </button>
-        </div>
+        <img src="./images/Logo.svg" alt="Spots Logo" class="header__image" />
       </header>
+      <div class="profile">
+        <div class="profile__avatar">
+          <img
+            src="./images/avatar.jpg"
+            alt="Bessie Coleman Picture"
+            class="profile__picture"
+          />
+          <div class="profile__information">
+            <div>
+              <h1 class="profile__name">Bessie Coleman</h1>
+              <p class="profile__description">Civil Aviator</p>
+            </div>
+            <button type="button" class="profile__button-edit">
+              <img
+                src="./images/pencil.svg"
+                alt="pencil icon"
+                class="profile__edit-pencil"
+              />
+              Edit Profile
+            </button>
+          </div>
+        </div>
+        <button class="profile__button-new">
+          <img
+            src="./images/Plus.svg"
+            alt="Plus Icon"
+            class="profile__new-plus"
+          />
+          New Post
+        </button>
+      </div>
+
       <main>
         <section class="cards">
           <div class="cards__card card">
             <div class="card__image card__image_name_moritz"></div>
             <div class="card__info">
-              <p class="card__author">Val Thorens</p>
+              <p class="card__description">Val Thorens</p>
               <button type="button" class="card__like-button">
                 <img
                   src="./images/Like.svg"
@@ -63,7 +61,7 @@
           <div class="cards__card card">
             <div class="card__image card__image_name_ceiline"></div>
             <div class="card__info">
-              <p class="card__author">Restaurant terrace</p>
+              <p class="card__description">Restaurant terrace</p>
               <button type="button" class="card__like-button">
                 <img
                   src="./images/Like.svg"
@@ -76,7 +74,7 @@
           <div class="cards__card card">
             <div class="card__image card__image_name_tubanar"></div>
             <div class="card__info">
-              <p class="card__author">An outdoor cafe</p>
+              <p class="card__description">An outdoor cafe</p>
               <button type="button" class="card__like-button">
                 <img
                   src="./images/Like.svg"
@@ -89,7 +87,9 @@
           <div class="cards__card card">
             <div class="card__image card__image_name_maurice"></div>
             <div class="card__info">
-              <p class="card__author">A very long bridge, over the forest...</p>
+              <p class="card__description">
+                A very long bridge, over the forest...
+              </p>
               <button type="button" class="card__like-button">
                 <img
                   src="./images/Like.svg"
@@ -102,7 +102,7 @@
           <div class="cards__card card">
             <div class="card__image card__image_name_van"></div>
             <div class="card__info">
-              <p class="card__author">Tunnel with morning light</p>
+              <p class="card__description">Tunnel with morning light</p>
               <button type="button" class="card__like-button">
                 <img
                   src="./images/Like.svg"
@@ -115,7 +115,7 @@
           <div class="cards__card card">
             <div class="card__image card__image_name_moritz2"></div>
             <div class="card__info">
-              <p class="card__author">Mountain house</p>
+              <p class="card__description">Mountain house</p>
               <button type="button" class="card__like-button">
                 <img
                   src="./images/Like.svg"

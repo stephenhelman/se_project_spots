@@ -44,14 +44,14 @@
   align-content: center;
 }
 
-.card__author {
+.card__description {
   margin: 0;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .card__like-button {
-  padding: 0;
-  border: none;
-  background-color: transparent;
 }
 
 .card__like-button-heart {
