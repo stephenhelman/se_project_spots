@@ -5,36 +5,10 @@
 }
 
 .card__image {
-  width: 413px;
+  width: 100%;
   height: 413px;
+  margin-bottom: auto;
   border-radius: 8px;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.card__image_name_moritz {
-  background-image: url("../images/1-photo-by-moritz-feldmann-from-pexels.jpg");
-}
-
-.card__image_name_ceiline {
-  background-image: url("../images/2-photo-by-ceiline-from-pexels.jpg");
-}
-
-.card__image_name_tubanar {
-  background-image: url("../images/3-photo-by-tubanur-dogan-from-pexels.jpg");
-}
-
-.card__image_name_maurice {
-  background-image: url("../images/4-photo-by-maurice-laschet-from-pexels.jpg");
-}
-
-.card__image_name_van {
-  background-image: url("../images/5-photo-by-van-anh-nguyen-from-pexels.jpg");
-}
-
-.card__image_name_moritz2 {
-  background-image: url("../images/6-photo-by-moritz-feldmann-from-pexels.jpg");
 }
 
 .card__info {
@@ -52,9 +26,16 @@
 }
 
 .card__like-button {
-}
-
-.card__like-button-heart {
+  background-image: url("../images/heart.svg");
   width: 23px;
   height: 20px;
+  color: #212121;
+  opacity: 40%;
+  background-color: transparent;
+  border: none;
+}
+
+.card__like-button:hover {
+  opacity: 100%;
+  cursor: pointer;
 }

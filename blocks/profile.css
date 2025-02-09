@@ -48,3 +48,42 @@
   line-height: 16px;
   color: #212121b2;
 }
+
+.profile__button-edit {
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: none;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 16px;
+  color: #212121;
+  opacity: 70%;
+}
+
+.profile__button-edit:hover {
+  opacity: 100%;
+  cursor: pointer;
+}
+
+.profile__button-new {
+  background-color: #212121;
+  padding: 18px 32px;
+  border: none;
+  border-radius: 8px;
+  color: #fcf5e5;
+  line-height: 16px;
+  font-size: 16px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.profile__button-new:hover {
+  opacity: 80%;
+  cursor: pointer;
+}
