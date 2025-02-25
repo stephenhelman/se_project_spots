@@ -25,5 +25,8 @@
 
 I hope you enjoy my Spots Project!
 
-Link to Screenshots
-Link to Video Overview
+[Link to Github Pages deployment](https://stephenhelman.github.io/se_project_spots/index.html)
+
+[Link to Screenshots](https://drive.google.com/drive/folders/1o4b8HXETxWZfh3nm86dju749204FoG-1?usp=sharing)
+
+[Link to Video Overview](https://www.loom.com/share/40bd6292fe894f098f7b3212a644cbe2?sid=1130641c-a1b6-40f8-ba9e-37263e81206b)
