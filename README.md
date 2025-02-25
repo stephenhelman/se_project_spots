@@ -1,21 +1,29 @@
 # Project 3: Spots
 
-### Overview  
+### Overview
 
-* Intro  
-* Figma  
-* Images  
-  
+- Intro
+- Figma
+- Grid/Flex
+
 **Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
-  
-**Figma**  
-  
-* [Link to the project on Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
-  
-**Images**  
-  
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+
+- This project is the project for Sprint 3 at Triple Ten. It is the culmination of HTML and CSS.
+- In this project I utilized media queries, grid layouts, as well as flex-box layouts
+
+**Figma**
+
+- With this project, we utilized a Figma made design, rather than a design inside of a PDF.
+- We had to learn to navigate the Figma interface in order to determine our margins, padding, font-sizes, and every aspect of sizing and styes involved in the project.
+
+**Grid/Flex**
+
+- To create the card layout, I utilized a grid design
+- This allowed me to create a responsive grid design that would require little code changes to make it responsive on may different screen sizes
+- TO help align and center the text and buttons, I utilized a flex box layout.
+- Flex allows me to easily spread out elements that are on the far sides of pages without having to manually place the items, or adjusting margins.
+
+I hope you enjoy my Spots Project!
+
+Link to Screenshots
+Link to Video Overview

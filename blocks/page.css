@@ -1,11 +1,14 @@
 .page {
   min-height: 100vh;
+  max-width: 1440px;
   margin: 0 auto;
+  min-width: 100%;
+  padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: #fcf5e5;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   box-sizing: border-box;
+  background-color: #fcf5e5;
 }

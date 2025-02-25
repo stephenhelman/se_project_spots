@@ -1,13 +1,11 @@
 .header {
   width: 100%;
-  max-width: 1440px;
-  height: 46px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  margin-bottom: 34px;
+  padding: 10px 20px;
 }
 
 .header__image {
