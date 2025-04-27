@@ -19,6 +19,9 @@
 
 .profile__picture {
   object-fit: cover;
+  border-radius: 8px;
+  height: 190px;
+  width: 190px;
 }
 
 .profile__column {

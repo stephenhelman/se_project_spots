@@ -13,13 +13,17 @@
   row-gap: 40px;
   justify-content: center;
   padding: 0;
+  margin: 0;
 }
 
 @media screen and (max-width: 627px) {
   .cards {
     column-gap: 0;
-    row-gap: 20px;
     padding-bottom: 20px;
     max-width: 288px;
+  }
+
+  .cards__list {
+    row-gap: 20px;
   }
 }
