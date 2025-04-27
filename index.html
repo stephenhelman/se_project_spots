@@ -111,6 +111,56 @@
       <footer class="footer">
         <p class="footer__copyright">2025 &copy; Spots</p>
       </footer>
+      <div class="modal">
+        <div class="modal__container">
+          <div class="modal__header">
+            <h3 class="modal__title">Edit profile</h3>
+            <button type="button" class="modal__close-button"></button>
+          </div>
+          <form action="" class="modal__form">
+            <label for="name" class="modal__label">Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Type your name"
+              class="modal__input"
+            />
+            <label for="description" class="modal__label">Description</label>
+            <input
+              type="text"
+              name="description"
+              placeholder="Describe yourself"
+              class="modal__input"
+            />
+            <button type="submit" class="modal__form-submit">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal modal_is-opened">
+        <div class="modal__container">
+          <div class="modal__header">
+            <h3 class="modal__title">New post</h3>
+            <button type="button" class="modal__close-button"></button>
+          </div>
+          <form action="" class="modal__form">
+            <label for="image-link" class="modal__label">Image link</label>
+            <input
+              type="text"
+              name="image-link"
+              placeholder="Post a link to the picture"
+              class="modal__input"
+            />
+            <label for="caption" class="modal__label">Caption</label>
+            <input
+              type="text"
+              name="caption"
+              placeholder="Type your caption"
+              class="modal__input"
+            />
+            <button type="submit" class="modal__form-submit">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>

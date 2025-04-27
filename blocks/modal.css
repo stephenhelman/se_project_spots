@@ -1,0 +1,118 @@
+.modal {
+  visibility: hidden;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: grid;
+  place-content: center;
+}
+
+.modal__container {
+  width: 630px;
+  height: auto;
+  background-color: #fff;
+  padding: 32px 50px;
+  border-radius: 8px;
+}
+
+.nodal__form {
+  width: 100%;
+}
+
+.modal__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  height: 40px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.modal__title {
+  margin: 0;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.modal__close-button {
+  background-image: url("../images/close.svg");
+  padding: 0;
+  height: 40px;
+  width: 40px;
+  color: #212121;
+  opacity: 40%;
+  background-color: transparent;
+  border: none;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.modal__close-button:hover {
+  opacity: 100%;
+  cursor: pointer;
+}
+
+.modal__label {
+  height: 18px;
+  color: #212121b3;
+  display: block;
+  margin-bottom: 8px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 110.00000000000001%;
+  letter-spacing: 0%;
+}
+
+.modal__input {
+  width: 604px;
+  padding: 16px 12px;
+  border: 1px solid #21212166;
+  border-radius: 8px;
+  margin-bottom: 32px;
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #212121;
+  cursor: pointer;
+}
+
+.modal__input::placeholder {
+  color: #21212180;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.modal__form-submit {
+  padding: 18px 32px;
+  border-radius: 8px;
+  background-color: #212121;
+  color: #fcf5e5;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.modal__form-submit:hover {
+  opacity: 80%;
+  cursor: pointer;
+}
+
+.modal_is-opened {
+  visibility: visible;
+}
