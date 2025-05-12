@@ -44,8 +44,7 @@ const handleProfileFormSubmission = (e) => {
 
 const handleNewPostFormSubmission = (e) => {
   e.preventDefault();
-  console.log(nameInput.value);
-  console.log(linkInput.value);
+
   addCardFormElement.reset();
   newPostModal.classList.remove("modal_is-opened");
 };
@@ -68,7 +67,6 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmission);
 //open the new post modal on edit button click
 newPostButton.addEventListener("click", function () {
   newPostModal.classList.add("modal_is-opened");
-  //pre fill inputs with values from edited fields
 });
 
 //close the new post modal on close button click
