@@ -62,30 +62,37 @@ const changePageText = (inputToUse, elementToChange) => {
   elementToChange.textContent = inputToUse;
 };
 
+const openModal = (modal) => {
+  modal.classList.add("modal_is-opened");
+};
+
+const closeModal = (modal) => {
+  modal.classList.remove("modal_is-opened");
+};
+
 const handleProfileFormSubmission = (e) => {
   e.preventDefault();
   changePageText(profileNameInput.value, profileNameElement);
   changePageText(jobInput.value, profileJobElement);
-  editProfileModal.classList.remove("modal_is-opened");
+  closeModal(editProfileModal);
 };
 
 const handleNewPostFormSubmission = (e) => {
   e.preventDefault();
-
   addCardFormElement.reset();
-  newPostModal.classList.remove("modal_is-opened");
+  closeModal(newPostModal);
 };
 
 //open the edit profile modal on edit button click
 editProfileButton.addEventListener("click", function () {
-  editProfileModal.classList.add("modal_is-opened");
+  openModal(editProfileModal);
   prefillForm(profileNameElement.textContent, profileNameInput);
   prefillForm(profileJobElement.textContent, jobInput);
 });
 
 //close the edit profile modal on close button click
 editProfileCloseButton.addEventListener("click", function () {
-  editProfileModal.classList.remove("modal_is-opened");
+  closeModal(editProfileModal);
 });
 
 //change the page text on form submission
@@ -93,12 +100,12 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmission);
 
 //open the new post modal on edit button click
 newPostButton.addEventListener("click", function () {
-  newPostModal.classList.add("modal_is-opened");
+  openModal(newPostModal);
 });
 
 //close the new post modal on close button click
 newPostCloseButton.addEventListener("click", function () {
-  newPostModal.classList.remove("modal_is-opened");
+  closeModal(newPostModal);
 });
 
 //save the changes and display them on the page
