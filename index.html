@@ -39,7 +39,7 @@
             <template id="card-template">
               <li class="card">
                 <div class="card__image-container">
-                  <img class="card__image" />
+                  <img src="#" alr="" class="card__image" />
                   <button type="button" class="card__delete-button"></button>
                 </div>
                 <div class="card__info">
@@ -58,7 +58,10 @@
         <div class="modal__container">
           <div class="modal__header">
             <h3 class="modal__title">Edit profile</h3>
-            <button type="button" class="modal__close-button"></button>
+            <button
+              type="button"
+              class="modal__button modal__button_type_close"
+            ></button>
           </div>
           <form class="modal__form">
             <label for="profile-name-input" class="modal__label">Name</label>
@@ -85,7 +88,10 @@
         <div class="modal__container">
           <div class="modal__header">
             <h3 class="modal__title">New post</h3>
-            <button type="button" class="modal__close-button"></button>
+            <button
+              type="button"
+              class="modal__button modal__button_type_close"
+            ></button>
           </div>
           <form class="modal__form">
             <label for="image-link-input" class="modal__label"
@@ -106,6 +112,16 @@
             />
             <button type="submit" class="modal__form-submit">Save</button>
           </form>
+        </div>
+      </div>
+      <div class="modal modal__preview" id="preview-modal">
+        <div class="modal__preview-container">
+          <button
+            type="button"
+            class="modal__button modal__button_type_preview-close"
+          ></button>
+          <img src="#" alt="" class="modal__image" />
+          <p class="modal__caption"></p>
         </div>
       </div>
     </div>
