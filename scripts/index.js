@@ -1,27 +1,27 @@
 const initialCards = [
   {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Restaurant terraces",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+    name: "Mountain house",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
   {
     name: "Tunnel with morning light",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
   },
   {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
+    name: "A very long bridge, over the forest and through the trees",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+  },
+  {
+    name: "An outdoor cafe",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
+  },
+  {
+    name: "Restaurant terraces",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
+  },
+  {
+    name: "Val Thorens",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
 
@@ -53,6 +53,26 @@ const newPostCloseButton = newPostModal.querySelector(".modal__close-button");
 const addCardFormElement = newPostModal.querySelector(".modal__form");
 const nameInput = addCardFormElement.querySelector("#image-link-input");
 const linkInput = addCardFormElement.querySelector("#caption-input");
+
+const cardsContainer = document.querySelector(".cards__list");
+const cardTemplate = document.querySelector("#card-template");
+
+const getCardElement = (data) => {
+  const cardElement = cardTemplate.content
+    .querySelector(".card")
+    .cloneNode(true);
+
+  const cardTitle = cardElement.querySelector(".card__description");
+  const cardImage = cardElement.querySelector(".card__image");
+
+  cardTitle.textContent = data.name;
+  cardImage.setAttribute("src", data.link);
+  cardImage.setAttribute("alt", data.name);
+
+  return cardElement;
+};
+
+getCardElement(initialCards[0]);
 
 const prefillForm = (text, formElement) => {
   formElement.value = text;
@@ -112,5 +132,6 @@ newPostCloseButton.addEventListener("click", function () {
 addCardFormElement.addEventListener("submit", handleNewPostFormSubmission);
 
 initialCards.forEach((card) => {
-  //console.log(card);
+  const newCard = getCardElement(card);
+  cardsContainer.prepend(newCard);
 });
