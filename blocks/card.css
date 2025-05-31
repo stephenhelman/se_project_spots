@@ -79,8 +79,6 @@
 
 .card__like-button_active {
   background-image: url("../images/heartActive.svg");
-  width: 23px;
-  height: 20px;
   opacity: 100%;
 }
 
@@ -100,7 +98,7 @@
 
   .card__like-button {
     width: 20px;
-    height: 20px;
+    height: 18px;
   }
 
   .card__description {

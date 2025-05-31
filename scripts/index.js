@@ -51,8 +51,8 @@ const newPostCloseButton = newPostModal.querySelector(".modal__close-button");
 
 //select the parts of the new post modal to log
 const addCardFormElement = newPostModal.querySelector(".modal__form");
-const nameInput = addCardFormElement.querySelector("#image-link-input");
-const linkInput = addCardFormElement.querySelector("#caption-input");
+const nameInput = addCardFormElement.querySelector("#caption-input");
+const linkInput = addCardFormElement.querySelector("#image-link-input");
 
 const cardsContainer = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card-template");
@@ -64,15 +64,23 @@ const getCardElement = (data) => {
 
   const cardTitle = cardElement.querySelector(".card__description");
   const cardImage = cardElement.querySelector(".card__image");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
 
   cardTitle.textContent = data.name;
   cardImage.setAttribute("src", data.link);
   cardImage.setAttribute("alt", data.name);
 
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button_active");
+  });
+
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
+
   return cardElement;
 };
-
-getCardElement(initialCards[0]);
 
 const prefillForm = (text, formElement) => {
   formElement.value = text;
@@ -99,7 +107,13 @@ const handleProfileFormSubmission = (e) => {
 
 const handleNewPostFormSubmission = (e) => {
   e.preventDefault();
+  const newElement = getCardElement({
+    name: nameInput.value,
+    link: linkInput.value,
+  });
+  console.log(newElement);
   addCardFormElement.reset();
+  cardsContainer.prepend(newElement);
   closeModal(newPostModal);
 };
 
