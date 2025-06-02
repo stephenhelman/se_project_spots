@@ -37,6 +37,9 @@ const editProfileModal = document.querySelector("#edit-profile-modal");
 const profileForm = document.forms["edit-profile"];
 const profileNameInput = profileForm.elements.name;
 const jobInput = profileForm.elements.description;
+const editProfileSubmitButton = profileForm.querySelector(
+  ".modal__form-submit"
+);
 
 //selecting the profile elements to change/get values from
 const profile = document.querySelector(".profile");
@@ -51,6 +54,7 @@ const newPostModal = document.querySelector("#new-post-modal");
 const addCardForm = document.forms["new-post"];
 const nameInput = addCardForm.elements.link;
 const linkInput = addCardForm.elements.caption;
+const addCardSubmitButton = addCardForm.querySelector(".modal__form-submit");
 
 //select the parts of the image preview modal
 const previewModal = document.querySelector("#preview-modal");
@@ -62,8 +66,8 @@ const cardsContainer = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card-template");
 
 //helper functions
-const prefillInput = (text, formElement) => {
-  formElement.value = text;
+const prefillInput = (text, inputElement) => {
+  inputElement.value = text;
 };
 
 const changeText = (value, elementToChange) => {
@@ -78,6 +82,31 @@ const closeModal = (modal) => {
   modal.classList.remove("modal_is-opened");
 };
 
+const closeModalOnOverlayClick = (e) => {
+  if (Array.from(e.target.classList).includes("modal__container")) {
+    return;
+  } else {
+    closeModal(e.target);
+  }
+};
+
+const closeModalOnEscapePressed = (e) => {
+  const modal = document.querySelector(".modal_is-opened");
+  if (e.key === "Escape") {
+    closeModal(modal);
+    document.removeEventListener("keydown", closeModalOnEscapePressed);
+  } else {
+    return;
+  }
+};
+
+//select all modals
+const modals = Array.from(document.querySelectorAll(".modal"));
+
+modals.forEach((modal) => {
+  modal.addEventListener("click", closeModalOnOverlayClick);
+});
+
 const setImageAttributes = (imageElement, data) => {
   imageElement.setAttribute("src", data.link);
   imageElement.setAttribute("alt", data.name);
@@ -91,7 +120,9 @@ closeButtons.forEach((button) => {
   const modal = button.closest(".modal");
 
   // Attach a click event listener to each close button
-  button.addEventListener("click", () => closeModal(modal));
+  button.addEventListener("click", () => {
+    closeModal(modal);
+  });
 });
 
 const renderCard = (item, method = "prepend") => {
@@ -127,6 +158,7 @@ const getCardElement = (data) => {
     setImageAttributes(modalImage, data);
     changeText(data.name, modalCaption);
     openModal(previewModal);
+    document.addEventListener("keydown", closeModalOnEscapePressed);
   });
 
   return cardElement;
@@ -147,6 +179,7 @@ const handleNewPostFormSubmission = (e) => {
   });
   addCardForm.reset();
   cardsContainer.prepend(newElement);
+  disableButton(addCardSubmitButton, config.inactiveButtonClass);
   closeModal(newPostModal);
 };
 
@@ -155,6 +188,8 @@ editProfileButton.addEventListener("click", () => {
   openModal(editProfileModal);
   prefillInput(profileNameElement.textContent, profileNameInput);
   prefillInput(profileJobElement.textContent, jobInput);
+  enableButton(editProfileSubmitButton, config.inactiveButtonClass);
+  document.addEventListener("keydown", closeModalOnEscapePressed);
 });
 
 //change the page text on form submission
@@ -163,6 +198,7 @@ profileForm.addEventListener("submit", handleProfileFormSubmission);
 //open the new post modal on edit button click
 newPostButton.addEventListener("click", () => {
   openModal(newPostModal);
+  document.addEventListener("keydown", closeModalOnEscapePressed);
 });
 
 //save the changes and display them on the page

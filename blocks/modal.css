@@ -102,6 +102,12 @@
   font-size: 16px;
 }
 
+.modal__fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
 .modal__input {
   width: 100%;
   max-width: 630px;
@@ -109,7 +115,7 @@
   border: 1px solid #21212166;
   border-radius: 8px;
   margin-bottom: 32px;
-  font-family: Poppins;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 100%;
@@ -123,6 +129,25 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 100%;
+}
+
+.modal__input_type_error {
+  border: 1px solid #ff0000;
+  margin-bottom: 8px;
+}
+
+.modal__input-error {
+  display: none;
+}
+
+.modal__input-error_active {
+  display: block;
+  color: #ff0000;
+  opacity: 70%;
+  size: 16px;
+  font-weight: 500;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  margin-bottom: 32px;
 }
 
 .modal__form-submit {
@@ -141,6 +166,15 @@
 .modal__form-submit:hover {
   opacity: 80%;
   cursor: pointer;
+}
+
+.modal__form-submit_inactive {
+  opacity: 50%;
+}
+
+.modal__form-submit_inactive:hover {
+  cursor: not-allowed;
+  opacity: 50%;
 }
 
 .modal__caption {
@@ -186,6 +220,10 @@
   .modal__input {
     min-width: 276px;
     width: 100%;
+  }
+
+  .modal__input-error_active {
+    margin-bottom: 24px;
   }
 
   .modal__form-submit {

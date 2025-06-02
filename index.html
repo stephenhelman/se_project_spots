@@ -64,25 +64,37 @@
             ></button>
           </div>
           <form class="modal__form" name="edit-profile">
-            <label for="profile-name-input" class="modal__label">Name</label>
-            <input
-              name="name"
-              type="text"
-              id="profile-name-input"
-              placeholder="Type your name"
-              class="modal__input"
-            />
-            <label for="profile-description-input" class="modal__label"
-              >Description</label
-            >
-            <input
-              name="description"
-              type="text"
-              id="profile-description-input"
-              placeholder="Describe yourself"
-              class="modal__input"
-            />
-            <button type="submit" class="modal__form-submit">Save</button>
+            <fieldset class="modal__fieldset">
+              <label for="profile-name-input" class="modal__label">Name</label>
+              <input
+                name="name"
+                type="text"
+                id="profile-name-input"
+                placeholder="Type your name"
+                class="modal__input"
+                minlength="2"
+                maxlength="40"
+                required
+              />
+              <span class="modal__input-error profile-name-input-error"></span>
+              <label for="profile-description-input" class="modal__label"
+                >Description</label
+              >
+              <input
+                name="description"
+                type="text"
+                id="profile-description-input"
+                placeholder="Describe yourself"
+                class="modal__input"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span
+                class="modal__input-error profile-description-input-error"
+              ></span>
+              <button type="submit" class="modal__form-submit">Save</button>
+            </fieldset>
           </form>
         </div>
       </div>
@@ -96,25 +108,33 @@
             ></button>
           </div>
           <form class="modal__form" name="new-post">
-            <label for="image-link-input" class="modal__label"
-              >Image link</label
-            >
-            <input
-              name="link"
-              type="text"
-              id="image-link-input"
-              placeholder="Post a link to the picture"
-              class="modal__input"
-            />
-            <label for="caption-input" class="modal__label">Caption</label>
-            <input
-              name="caption"
-              type="text"
-              id="caption-input"
-              placeholder="Type your caption"
-              class="modal__input"
-            />
-            <button type="submit" class="modal__form-submit">Save</button>
+            <fieldset class="modal__fieldset">
+              <label for="image-link-input" class="modal__label"
+                >Image link</label
+              >
+              <input
+                name="link"
+                type="url"
+                id="image-link-input"
+                placeholder="Post a link to the picture"
+                class="modal__input"
+                required
+              />
+              <span class="modal__input-error image-link-input-error"></span>
+              <label for="caption-input" class="modal__label">Caption</label>
+              <input
+                name="caption"
+                type="text"
+                id="caption-input"
+                placeholder="Type your caption"
+                class="modal__input"
+                minlength="2"
+                maxlength="30"
+                required
+              />
+              <span class="modal__input-error caption-input-error"></span>
+              <button type="submit" class="modal__form-submit">Save</button>
+            </fieldset>
           </form>
         </div>
       </div>
@@ -130,5 +150,6 @@
       </div>
     </div>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>
