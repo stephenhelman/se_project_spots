@@ -19,6 +19,10 @@
   margin-bottom: 12px;
 }
 
+.card__image:hover {
+  cursor: pointer;
+}
+
 .card__delete-button {
   background-image: url("../images/deleteDefault.svg");
   width: 32px;

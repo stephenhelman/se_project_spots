@@ -62,7 +62,6 @@
 
 .modal__button_type_close {
   background-image: url("../images/close.svg");
-  color: #212121;
   opacity: 40%;
 }
 
@@ -71,6 +70,7 @@
   position: absolute;
   top: 0;
   right: -52.5px;
+  opacity: 1;
 }
 
 .modal__button_type_close:hover {

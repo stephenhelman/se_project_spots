@@ -63,9 +63,10 @@
               class="modal__button modal__button_type_close"
             ></button>
           </div>
-          <form class="modal__form">
+          <form class="modal__form" name="edit-profile">
             <label for="profile-name-input" class="modal__label">Name</label>
             <input
+              name="name"
               type="text"
               id="profile-name-input"
               placeholder="Type your name"
@@ -75,6 +76,7 @@
               >Description</label
             >
             <input
+              name="description"
               type="text"
               id="profile-description-input"
               placeholder="Describe yourself"
@@ -93,11 +95,12 @@
               class="modal__button modal__button_type_close"
             ></button>
           </div>
-          <form class="modal__form">
+          <form class="modal__form" name="new-post">
             <label for="image-link-input" class="modal__label"
               >Image link</label
             >
             <input
+              name="link"
               type="text"
               id="image-link-input"
               placeholder="Post a link to the picture"
@@ -105,6 +108,7 @@
             />
             <label for="caption-input" class="modal__label">Caption</label>
             <input
+              name="caption"
               type="text"
               id="caption-input"
               placeholder="Type your caption"
@@ -118,7 +122,7 @@
         <div class="modal__preview-container">
           <button
             type="button"
-            class="modal__button modal__button_type_preview-close"
+            class="modal__button modal__button_type_close modal__button_type_preview-close"
           ></button>
           <img src="#" alt="" class="modal__image" />
           <p class="modal__caption"></p>

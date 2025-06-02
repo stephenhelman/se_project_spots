@@ -32,16 +32,11 @@ const initialCards = [
 //selecting elements that control the edit profile modal
 const editProfileButton = document.querySelector(".profile__button-edit");
 const editProfileModal = document.querySelector("#edit-profile-modal");
-const editProfileCloseButton = editProfileModal.querySelector(
-  ".modal__button_type_close"
-);
 
 //selecting the parts of the form that will be prefilled
-const profileFormElement = editProfileModal.querySelector(".modal__form");
-const profileNameInput = profileFormElement.querySelector(
-  "#profile-name-input"
-);
-const jobInput = profileFormElement.querySelector("#profile-description-input");
+const profileForm = document.forms["edit-profile"];
+const profileNameInput = profileForm.elements.name;
+const jobInput = profileForm.elements.description;
 
 //selecting the profile elements to change/get values from
 const profile = document.querySelector(".profile");
@@ -51,20 +46,14 @@ const profileJobElement = profile.querySelector(".profile__description");
 //selection elements that control the new post modal
 const newPostButton = document.querySelector(".profile__button-new");
 const newPostModal = document.querySelector("#new-post-modal");
-const newPostCloseButton = newPostModal.querySelector(
-  ".modal__button_type_close"
-);
 
 //select the parts of the new post modal to use
-const addCardFormElement = newPostModal.querySelector(".modal__form");
-const nameInput = addCardFormElement.querySelector("#caption-input");
-const linkInput = addCardFormElement.querySelector("#image-link-input");
+const addCardForm = document.forms["new-post"];
+const nameInput = addCardForm.elements.link;
+const linkInput = addCardForm.elements.caption;
 
 //select the parts of the image preview modal
 const previewModal = document.querySelector("#preview-modal");
-const previewCloseButton = previewModal.querySelector(
-  ".modal__button_type_preview-close"
-);
 const modalImage = previewModal.querySelector(".modal__image");
 const modalCaption = previewModal.querySelector(".modal__caption");
 
@@ -73,7 +62,7 @@ const cardsContainer = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card-template");
 
 //helper functions
-const prefillForm = (text, formElement) => {
+const prefillInput = (text, formElement) => {
   formElement.value = text;
 };
 
@@ -92,6 +81,23 @@ const closeModal = (modal) => {
 const setImageAttributes = (imageElement, data) => {
   imageElement.setAttribute("src", data.link);
   imageElement.setAttribute("alt", data.name);
+};
+
+// Select all close buttons
+const closeButtons = document.querySelectorAll(".modal__button_type_close");
+
+closeButtons.forEach((button) => {
+  // Find the closest modal for each button, only once
+  const modal = button.closest(".modal");
+
+  // Attach a click event listener to each close button
+  button.addEventListener("click", () => closeModal(modal));
+});
+
+const renderCard = (item, method = "prepend") => {
+  const cardElement = getCardElement(item);
+
+  cardsContainer[method](cardElement);
 };
 
 //create a new card
@@ -139,8 +145,7 @@ const handleNewPostFormSubmission = (e) => {
     name: nameInput.value,
     link: linkInput.value,
   });
-  console.log(newElement);
-  addCardFormElement.reset();
+  addCardForm.reset();
   cardsContainer.prepend(newElement);
   closeModal(newPostModal);
 };
@@ -148,36 +153,21 @@ const handleNewPostFormSubmission = (e) => {
 //open the edit profile modal on edit button click
 editProfileButton.addEventListener("click", () => {
   openModal(editProfileModal);
-  prefillForm(profileNameElement.textContent, profileNameInput);
-  prefillForm(profileJobElement.textContent, jobInput);
-});
-
-//close the edit profile modal on close button click
-editProfileCloseButton.addEventListener("click", () => {
-  closeModal(editProfileModal);
+  prefillInput(profileNameElement.textContent, profileNameInput);
+  prefillInput(profileJobElement.textContent, jobInput);
 });
 
 //change the page text on form submission
-profileFormElement.addEventListener("submit", handleProfileFormSubmission);
+profileForm.addEventListener("submit", handleProfileFormSubmission);
 
 //open the new post modal on edit button click
 newPostButton.addEventListener("click", () => {
   openModal(newPostModal);
 });
 
-//close the new post modal on close button click
-newPostCloseButton.addEventListener("click", () => {
-  closeModal(newPostModal);
-});
-
 //save the changes and display them on the page
-addCardFormElement.addEventListener("submit", handleNewPostFormSubmission);
-
-previewCloseButton.addEventListener("click", () => {
-  closeModal(previewModal);
-});
+addCardForm.addEventListener("submit", handleNewPostFormSubmission);
 
 initialCards.forEach((card) => {
-  const newCard = getCardElement(card);
-  cardsContainer.prepend(newCard);
+  renderCard(card);
 });
