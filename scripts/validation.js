@@ -83,6 +83,15 @@ const enableValidation = (settings) => {
   });
 };
 
+const resetValidation = (formElement, settings) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(settings.inputSelector)
+  );
+  inputList.forEach((input) => {
+    hideInputError(formElement, input, settings);
+  });
+};
+
 const config = {
   formSelector: ".modal__form",
   fieldsetSelector: ".modal__fieldset",

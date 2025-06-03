@@ -52,8 +52,8 @@ const newPostModal = document.querySelector("#new-post-modal");
 
 //select the parts of the new post modal to use
 const addCardForm = document.forms["new-post"];
-const nameInput = addCardForm.elements.link;
-const linkInput = addCardForm.elements.caption;
+const captionInput = addCardForm.elements.caption;
+const linkInput = addCardForm.elements.link;
 const addCardSubmitButton = addCardForm.querySelector(".modal__form-submit");
 
 //select the parts of the image preview modal
@@ -76,35 +76,34 @@ const changeText = (value, elementToChange) => {
 
 const openModal = (modal) => {
   modal.classList.add("modal_is-opened");
+  document.addEventListener("keydown", handleEscape);
 };
 
 const closeModal = (modal) => {
   modal.classList.remove("modal_is-opened");
+  document.removeEventListener("keydown", handleEscape);
 };
 
-const closeModalOnOverlayClick = (e) => {
-  if (Array.from(e.target.classList).includes("modal__container")) {
-    return;
-  } else {
-    closeModal(e.target);
-  }
-};
-
-const closeModalOnEscapePressed = (e) => {
-  const modal = document.querySelector(".modal_is-opened");
+const handleEscape = (e) => {
   if (e.key === "Escape") {
-    closeModal(modal);
-    document.removeEventListener("keydown", closeModalOnEscapePressed);
-  } else {
-    return;
+    const openModal = document.querySelector(".modal_is-opened");
+    closeModal(openModal);
   }
 };
 
 //select all modals
-const modals = Array.from(document.querySelectorAll(".modal"));
+const modals = document.querySelectorAll(".modal");
 
+//add closeModal functionality to close buttons or overlay
 modals.forEach((modal) => {
-  modal.addEventListener("click", closeModalOnOverlayClick);
+  modal.addEventListener("mousedown", (e) => {
+    if (
+      e.target === modal ||
+      e.target.classList.contains("modal__button_type_close")
+    ) {
+      closeModal(modal);
+    }
+  });
 });
 
 const setImageAttributes = (imageElement, data) => {
@@ -114,16 +113,6 @@ const setImageAttributes = (imageElement, data) => {
 
 // Select all close buttons
 const closeButtons = document.querySelectorAll(".modal__button_type_close");
-
-closeButtons.forEach((button) => {
-  // Find the closest modal for each button, only once
-  const modal = button.closest(".modal");
-
-  // Attach a click event listener to each close button
-  button.addEventListener("click", () => {
-    closeModal(modal);
-  });
-});
 
 const renderCard = (item, method = "prepend") => {
   const cardElement = getCardElement(item);
@@ -143,8 +132,7 @@ const getCardElement = (data) => {
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
   changeText(data.name, cardTitle);
-  cardImage.setAttribute("src", data.link);
-  cardImage.setAttribute("alt", data.name);
+  setImageAttributes(cardImage, data);
 
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
@@ -158,7 +146,6 @@ const getCardElement = (data) => {
     setImageAttributes(modalImage, data);
     changeText(data.name, modalCaption);
     openModal(previewModal);
-    document.addEventListener("keydown", closeModalOnEscapePressed);
   });
 
   return cardElement;
@@ -174,7 +161,7 @@ const handleProfileFormSubmission = (e) => {
 const handleNewPostFormSubmission = (e) => {
   e.preventDefault();
   const newElement = getCardElement({
-    name: nameInput.value,
+    name: captionInput.value,
     link: linkInput.value,
   });
   addCardForm.reset();
@@ -186,10 +173,10 @@ const handleNewPostFormSubmission = (e) => {
 //open the edit profile modal on edit button click
 editProfileButton.addEventListener("click", () => {
   openModal(editProfileModal);
+  resetValidation(profileForm, config);
   prefillInput(profileNameElement.textContent, profileNameInput);
   prefillInput(profileJobElement.textContent, jobInput);
   enableButton(editProfileSubmitButton, config.inactiveButtonClass);
-  document.addEventListener("keydown", closeModalOnEscapePressed);
 });
 
 //change the page text on form submission
@@ -198,7 +185,6 @@ profileForm.addEventListener("submit", handleProfileFormSubmission);
 //open the new post modal on edit button click
 newPostButton.addEventListener("click", () => {
   openModal(newPostModal);
-  document.addEventListener("keydown", closeModalOnEscapePressed);
 });
 
 //save the changes and display them on the page
