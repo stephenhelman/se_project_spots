@@ -1,61 +1,56 @@
-import { config, enableValidation } from "../scripts/validation.js";
+import {
+  config,
+  disableButton,
+  enableButton,
+  enableValidation,
+  resetValidation,
+} from "../scripts/validation.js";
+import { initializeWebpack } from "../util/util.js";
+import Api from "../components/Api.js";
 import "./index.css";
 
-import headerImage from "../images/Logo.svg";
-import avatarImage from "../images/avatar.jpg";
-import pencilImage from "../images/pencil.svg";
-import plusImage from "../images/Plus.svg";
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  token: "a30404cf-e968-457d-9272-e0540b733e36",
+  contentType: "application/json",
+});
 
-const initialCards = [
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Tunnel with morning light",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-  },
-  {
-    name: "A very long bridge",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-  {
-    name: "Restaurant terraces",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Golden Gate Bridge",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-  },
-];
-
-//set up images for webpack
-const headerImageElement = document.querySelector("#image-header");
-const avatarImageElement = document.querySelector("#image-avatar");
-const pencilImageElement = document.querySelector("#image-pencil");
-const plusImageElement = document.querySelector("#image-plus");
-const webpackImageArray = [
-  [headerImageElement, headerImage],
-  [avatarImageElement, avatarImage],
-  [pencilImageElement, pencilImage],
-  [plusImageElement, plusImage],
-];
-
-const defineSrcForWebpackImages = ([element, imageImport]) => {
-  element.src = imageImport;
+const changeProfileInfo = (data) => {
+  changeText(data.name, profileNameElement);
+  changeText(data.about, profileJobElement);
 };
 
-webpackImageArray.forEach((element) => {
-  defineSrcForWebpackImages(element);
-});
+const handleLoadProfileInfo = (data) => {
+  changeProfileInfo(data);
+  setImageAttributes(profilePictureElement, {
+    link: data.avatar,
+    name: data.name,
+  });
+};
+
+api
+  .getUserInfo()
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  })
+  .then((data) => {
+    handleLoadProfileInfo(data);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+//TODO edit profile avatar => api.updateAvatar({link})
+//update avatar src with link
+
+//TODO create card => api.createCard({name, link})
+//add a card to the database and render the new card
+
+//TODO delete a card => api.deleteCard({cardId})
+//delete te card from the database and the page
 
 //selecting elements that control the edit profile modal
 const editProfileButton = document.querySelector(".profile__button-edit");
@@ -73,6 +68,7 @@ const editProfileSubmitButton = profileForm.querySelector(
 const profile = document.querySelector(".profile");
 const profileNameElement = profile.querySelector(".profile__name");
 const profileJobElement = profile.querySelector(".profile__description");
+const profilePictureElement = profile.querySelector(".profile__picture");
 
 //selection elements that control the new post modal
 const newPostButton = document.querySelector(".profile__button-new");
@@ -159,8 +155,26 @@ const getCardElement = (data) => {
   changeText(data.name, cardTitle);
   setImageAttributes(cardImage, data);
 
+  if (data.isLiked) {
+    likeButton.classList.add("card__like-button_active");
+  }
+
   likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
+    data.isLiked
+      ? api
+          .deleteLike({ cardId: data._id })
+          .then(likeButton.classList.toggle("card__like-button_active"))
+          .catch((err) => console.error(err))
+      : api
+          .addLike({ cardId: data._id })
+          .then((res) => {
+            if (res.ok) {
+              return res.json();
+            }
+            return Promise.reject(`Error: ${res.status}`);
+          })
+          .then(likeButton.classList.toggle("card__like-button_active"))
+          .catch((err) => console.error(err));
   });
 
   deleteButton.addEventListener("click", () => {
@@ -178,21 +192,43 @@ const getCardElement = (data) => {
 
 const handleProfileFormSubmission = (e) => {
   e.preventDefault();
-  changeText(profileNameInput.value, profileNameElement);
-  changeText(jobInput.value, profileJobElement);
-  closeModal(editProfileModal);
+  api
+    .updateProfileInfo({
+      name: profileNameInput.value,
+      about: jobInput.value,
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {
+      changeProfileInfo(data);
+      closeModal(editProfileModal);
+    })
+    .catch((err) => console.error(err));
 };
 
 const handleNewPostFormSubmission = (e) => {
   e.preventDefault();
-  const newElement = getCardElement({
-    name: captionInput.value,
-    link: linkInput.value,
-  });
-  addCardForm.reset();
-  cardsContainer.prepend(newElement);
-  disableButton(addCardSubmitButton, config.inactiveButtonClass);
-  closeModal(newPostModal);
+  api
+    .createCard({
+      name: captionInput.value,
+      link: linkInput.value,
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((data) => {
+      renderCard(data);
+      addCardForm.reset();
+      disableButton(addCardSubmitButton, config.inactiveButtonClass);
+      closeModal(newPostModal);
+    });
 };
 
 //open the edit profile modal on edit button click
@@ -215,8 +251,23 @@ newPostButton.addEventListener("click", () => {
 //save the changes and display them on the page
 addCardForm.addEventListener("submit", handleNewPostFormSubmission);
 
-initialCards.forEach((card) => {
-  renderCard(card);
-});
+initializeWebpack();
+
+api
+  .getCards()
+  .then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  })
+  .then((data) => {
+    if (!data.length) {
+      return console.log("no cards found");
+    }
+    data.forEach((card) => {
+      renderCard(card);
+    });
+  });
 
 enableValidation(config);

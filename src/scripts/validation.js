@@ -33,12 +33,12 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const disableButton = (button, inactiveButtonClass) => {
+export const disableButton = (button, inactiveButtonClass) => {
   button.classList.add(inactiveButtonClass);
   button.disabled = true;
 };
 
-const enableButton = (button, inactiveButtonClass) => {
+export const enableButton = (button, inactiveButtonClass) => {
   button.classList.remove(inactiveButtonClass);
   button.disabled = false;
 };
@@ -83,13 +83,14 @@ export const enableValidation = (settings) => {
   });
 };
 
-const resetValidation = (formElement, settings) => {
+export const resetValidation = (formElement, settings, submitButton) => {
   const inputList = Array.from(
     formElement.querySelectorAll(settings.inputSelector)
   );
   inputList.forEach((input) => {
     hideInputError(formElement, input, settings);
   });
+  enableButton(submitButton, config.inactiveButtonClass);
 };
 
 export const config = {
