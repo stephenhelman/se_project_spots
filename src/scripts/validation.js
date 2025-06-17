@@ -65,7 +65,7 @@ const setEventListeners = (formElement, settings) => {
   });
 };
 
-const enableValidation = (settings) => {
+export const enableValidation = (settings) => {
   const { formSelector, fieldsetSelector } = settings;
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
@@ -92,7 +92,7 @@ const resetValidation = (formElement, settings) => {
   });
 };
 
-const config = {
+export const config = {
   formSelector: ".modal__form",
   fieldsetSelector: ".modal__fieldset",
   inputSelector: ".modal__input",

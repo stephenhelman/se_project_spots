@@ -1,3 +1,11 @@
+import { config, enableValidation } from "../scripts/validation.js";
+import "./index.css";
+
+import headerImage from "../images/Logo.svg";
+import avatarImage from "../images/avatar.jpg";
+import pencilImage from "../images/pencil.svg";
+import plusImage from "../images/Plus.svg";
+
 const initialCards = [
   {
     name: "Mountain house",
@@ -28,6 +36,26 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
   },
 ];
+
+//set up images for webpack
+const headerImageElement = document.querySelector("#image-header");
+const avatarImageElement = document.querySelector("#image-avatar");
+const pencilImageElement = document.querySelector("#image-pencil");
+const plusImageElement = document.querySelector("#image-plus");
+const webpackImageArray = [
+  [headerImageElement, headerImage],
+  [avatarImageElement, avatarImage],
+  [pencilImageElement, pencilImage],
+  [plusImageElement, plusImage],
+];
+
+const defineSrcForWebpackImages = ([element, imageImport]) => {
+  element.src = imageImport;
+};
+
+webpackImageArray.forEach((element) => {
+  defineSrcForWebpackImages(element);
+});
 
 //selecting elements that control the edit profile modal
 const editProfileButton = document.querySelector(".profile__button-edit");
@@ -111,9 +139,6 @@ const setImageAttributes = (imageElement, data) => {
   imageElement.setAttribute("alt", data.name);
 };
 
-// Select all close buttons
-const closeButtons = document.querySelectorAll(".modal__button_type_close");
-
 const renderCard = (item, method = "prepend") => {
   const cardElement = getCardElement(item);
 
@@ -193,3 +218,5 @@ addCardForm.addEventListener("submit", handleNewPostFormSubmission);
 initialCards.forEach((card) => {
   renderCard(card);
 });
+
+enableValidation(config);

@@ -3,20 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="shortcut icon" href="./favicon.ico" />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/Logo.svg" alt="Spots Logo" class="header__image" />
+        <img alt="Spots Logo" class="header__image" id="image-header" />
       </header>
       <main class="content">
         <section class="profile">
           <div class="profile__avatar">
             <img
-              src="./images/avatar.jpg"
+              id="image-avatar"
               alt="Bessie Coleman"
               class="profile__picture"
             />
@@ -24,13 +23,13 @@
               <h1 class="profile__name">Bessie Coleman</h1>
               <p class="profile__description">Civil Aviator</p>
               <button type="button" class="profile__button-edit">
-                <img src="./images/pencil.svg" alt="Pencil Icon" />
+                <img alt="Pencil Icon" id="image-pencil" />
                 <span>Edit Profile</span>
               </button>
             </div>
           </div>
           <button type="button" class="profile__button-new">
-            <img src="./images/Plus.svg" alt="Plus Icon" />
+            <img alt="Plus Icon" id="image-plus" />
             New Post
           </button>
         </section>
@@ -149,7 +148,5 @@
         </div>
       </div>
     </div>
-    <script src="./scripts/index.js"></script>
-    <script src="./scripts/validation.js"></script>
   </body>
 </html>
