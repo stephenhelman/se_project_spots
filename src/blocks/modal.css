@@ -245,14 +245,6 @@
   box-sizing: border-box;
 }
 
-.modal__form-submit_type_saving::after {
-  content: "Saving...";
-}
-
-.modal__form-submit_type_deleting {
-  content: "Deleting...";
-}
-
 @media screen and (max-width: 627px) {
   .modal__container {
     padding: 12px;

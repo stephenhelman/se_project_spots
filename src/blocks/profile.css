@@ -141,6 +141,25 @@
     align-items: center;
   }
 
+  .profile__image-container {
+    height: 80px;
+    width: 80px;
+  }
+
+  .profile__avatar-button {
+    visibility: visible;
+    display: grid;
+    place-content: center;
+    top: 52px;
+    left: 52px;
+    width: 23.34px;
+    height: 23.34px;
+  }
+
+  .profile__avatar-button::after {
+    content: "";
+  }
+
   .profile__avatar {
     flex-direction: column;
     align-items: center;
@@ -149,11 +168,6 @@
 
   .profile__button-edit {
     align-self: center;
-  }
-
-  .profile__picture {
-    width: 80px;
-    height: 80px;
   }
 
   .profile__column {
