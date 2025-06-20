@@ -1,4 +1,5 @@
 export const createProfileConfig = () => {
+  //edit profile elements
   const editProfileButton = document.querySelector(".profile__button-edit");
   const editProfileModal = document.querySelector("#edit-profile-modal");
   const profileForm = document.forms["edit-profile"];
@@ -7,10 +8,21 @@ export const createProfileConfig = () => {
   const editProfileSubmitButton = profileForm.querySelector(
     ".modal__form-submit"
   );
+
+  //elements in the profile that will be changed
   const profile = document.querySelector(".profile");
   const profileNameElement = profile.querySelector(".profile__name");
   const profileJobElement = profile.querySelector(".profile__description");
   const profilePictureElement = profile.querySelector(".profile__picture");
+
+  //edit avatar elements
+  const editAvatarModal = document.querySelector("#edit-avatar-modal");
+  const editAvatarButton = document.querySelector(".profile__avatar-button");
+  const editAvatarForm = document.forms["edit-avatar"];
+  const editAvatarInput = editAvatarForm.elements.avatar;
+  const editAvatarSubmitButton = editAvatarForm.querySelector(
+    ".modal__form-submit"
+  );
 
   return {
     editProfileButton,
@@ -23,6 +35,11 @@ export const createProfileConfig = () => {
     profileNameElement,
     profileJobElement,
     profilePictureElement,
+    editAvatarButton,
+    editAvatarForm,
+    editAvatarInput,
+    editAvatarSubmitButton,
+    editAvatarModal,
   };
 };
 

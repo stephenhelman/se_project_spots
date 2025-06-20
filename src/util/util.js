@@ -1,6 +1,7 @@
 import headerImage from "../images/Logo.svg";
 import pencilImage from "../images/pencil.svg";
 import plusImage from "../images/Plus.svg";
+import avatarPencil from "../images/avatarPencil.svg";
 import {
   createDeleteCardConfig,
   createPreviewModalConfig,
@@ -12,10 +13,12 @@ export const initializeWebpack = () => {
   const headerImageElement = document.querySelector("#image-header");
   const pencilImageElement = document.querySelector("#image-pencil");
   const plusImageElement = document.querySelector("#image-plus");
+  const avatarPencilElement = document.querySelector("#image-avatar-edit");
   const webpackImageArray = [
     [headerImageElement, headerImage],
     [pencilImageElement, pencilImage],
     [plusImageElement, plusImage],
+    [avatarPencilElement, avatarPencil],
   ];
 
   const defineSrcForWebpackImages = ([element, imageImport]) => {
@@ -91,7 +94,7 @@ export const setModalEventListeners = () => {
   });
 };
 
-const setImageAttributes = (imageElement, data) => {
+export const setImageAttributes = (imageElement, data) => {
   imageElement.setAttribute("src", data.link);
   imageElement.setAttribute("alt", data.name);
 };

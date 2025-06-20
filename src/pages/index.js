@@ -1,7 +1,6 @@
 import {
   config,
   disableButton,
-  enableButton,
   enableValidation,
   resetValidation,
 } from "../scripts/validation.js";
@@ -19,6 +18,7 @@ import {
   cardConfig,
   deleteConfig,
   setModalEventListeners,
+  setImageAttributes,
 } from "../util/util.js";
 import Api from "../components/Api.js";
 import "./index.css";
@@ -59,6 +59,27 @@ const handleProfileFormSubmission = (e) => {
     .catch((err) => console.error(err));
 };
 
+const handleChangeAvatarSubmission = (e) => {
+  e.preventDefault();
+  api
+    .updateAvatar({ avatar: profileConfig.editAvatarInput.value })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then(() => {
+      setImageAttributes(profileConfig.profilePictureElement, {
+        link: profileConfig.editAvatarInput.value,
+        name: "Profile Picture",
+      });
+      profileConfig.editAvatarForm.reset();
+      closeModal(profileConfig.editAvatarModal);
+    })
+    .catch((err) => console.error(err));
+};
+
 const handleNewPostFormSubmission = (e) => {
   e.preventDefault();
   api
@@ -91,6 +112,16 @@ const handleDeleteSubmission = () => {
     }
   });
 };
+
+//open the edit avatar modal on edit avatar button click
+profileConfig.editAvatarButton.addEventListener("click", () => {
+  openModal(profileConfig.editAvatarModal);
+});
+
+profileConfig.editAvatarForm.addEventListener(
+  "submit",
+  handleChangeAvatarSubmission
+);
 
 //open the edit profile modal on edit button click
 profileConfig.editProfileButton.addEventListener("click", () => {

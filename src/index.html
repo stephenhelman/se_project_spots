@@ -9,12 +9,25 @@
   <body>
     <div class="page">
       <header class="header">
-        <img alt="Spots Logo" class="header__image" id="image-header" />
+        <img alt="Spots Logo" src="" class="header__image" id="image-header" />
       </header>
       <main class="content">
         <section class="profile">
           <div class="profile__avatar">
-            <img id="image-avatar" alt="" class="profile__picture" />
+            <div class="profile__image-container">
+              <button class="profile__avatar-button">
+                <img
+                  id="image-avatar-edit"
+                  alt="Edit Profile"
+                  class="profile__avatar-pencil"
+                />
+              </button>
+              <img
+                id="image-avatar"
+                alt="Profile Picture"
+                class="profile__picture"
+              />
+            </div>
             <div class="profile__column">
               <h1 class="profile__name"></h1>
               <p class="profile__description"></p>
@@ -168,6 +181,36 @@
             >
               Cancel
             </button>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="edit-avatar-modal">
+        <div class="modal__container">
+          <div class="modal__header">
+            <h3 class="modal__title">Edit profile avatar</h3>
+            <button
+              type="button"
+              class="modal__button modal__button_type_close"
+            ></button>
+          </div>
+          <form class="modal__form" name="edit-avatar">
+            <fieldset class="modal__fieldset">
+              <label for="profile-avatar-input" class="modal__label"
+                >Name</label
+              >
+              <input
+                name="avatar"
+                type="url"
+                id="profile-avatar-input"
+                placeholder="Paste the link to an image"
+                class="modal__input"
+                required
+              />
+              <span
+                class="modal__input-error profile-avatar-input-error"
+              ></span>
+              <button type="submit" class="modal__form-submit">Save</button>
+            </fieldset>
           </form>
         </div>
       </div>
