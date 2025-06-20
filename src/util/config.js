@@ -85,9 +85,13 @@ export const createDeleteCardConfig = () => {
   //delete card form selectors
   const deleteCardModal = document.querySelector("#delete-confirmation-modal");
   const deleteCardForm = document.forms["delete-confirmation"];
+  const deleteCardSubmitButton = deleteCardForm.querySelector(
+    ".modal__form-submit"
+  );
 
   return {
     deleteCardModal,
     deleteCardForm,
+    deleteCardSubmitButton,
   };
 };

@@ -19,6 +19,7 @@ import {
   deleteConfig,
   setModalEventListeners,
   setImageAttributes,
+  changeTextOnSubmission,
 } from "../util/util.js";
 import Api from "../components/Api.js";
 import "./index.css";
@@ -33,14 +34,14 @@ const api = new Api({
   contentType: "application/json",
 });
 
-//TODO edit profile avatar => api.updateAvatar({link})
-//update avatar src with link
-
-//TODO create card => api.createCard({name, link})
-//add a card to the database and render the new card
-
 const handleProfileFormSubmission = (e) => {
   e.preventDefault();
+  changeTextOnSubmission(
+    profileConfig.editProfileSubmitButton,
+    true,
+    "Saving...",
+    "Save"
+  );
   api
     .updateProfileInfo({
       name: profileConfig.profileNameInput.value,
@@ -56,11 +57,25 @@ const handleProfileFormSubmission = (e) => {
       changeProfileInfo(data, profileConfig);
       closeModal(profileConfig.editProfileModal);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => {
+      changeTextOnSubmission(
+        profileConfig.editProfileSubmitButton,
+        false,
+        "Saving...",
+        "Save"
+      );
+    });
 };
 
 const handleChangeAvatarSubmission = (e) => {
   e.preventDefault();
+  changeTextOnSubmission(
+    profileConfig.editAvatarSubmitButton,
+    true,
+    "Saving...",
+    "Save"
+  );
   api
     .updateAvatar({ avatar: profileConfig.editAvatarInput.value })
     .then((res) => {
@@ -77,11 +92,25 @@ const handleChangeAvatarSubmission = (e) => {
       profileConfig.editAvatarForm.reset();
       closeModal(profileConfig.editAvatarModal);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => {
+      changeTextOnSubmission(
+        profileConfig.editAvatarSubmitButton,
+        false,
+        "Saving...",
+        "Save"
+      );
+    });
 };
 
 const handleNewPostFormSubmission = (e) => {
   e.preventDefault();
+  changeTextOnSubmission(
+    newPostConfig.addCardSubmitButton,
+    true,
+    "Saving...",
+    "Save"
+  );
   api
     .createCard({
       name: newPostConfig.captionInput.value,
@@ -101,19 +130,45 @@ const handleNewPostFormSubmission = (e) => {
         config.inactiveButtonClass
       );
       closeModal(newPostConfig.newPostModal);
+    })
+    .finally(() => {
+      changeTextOnSubmission(
+        newPostConfig.addCardSubmitButton,
+        false,
+        "Saving...",
+        "Save"
+      );
     });
 };
 
-const handleDeleteSubmission = () => {
-  api.deleteCard({ cardId: selectedCardId }).then((res) => {
-    if (res.ok) {
-      selectedCard.remove();
-      closeModal(deleteConfig.deleteCardModal);
-    }
-  });
+const handleDeleteSubmission = (e) => {
+  e.preventDefault();
+  changeTextOnSubmission(
+    deleteConfig.deleteCardSubmitButton,
+    true,
+    "Deleting...",
+    "Delete"
+  );
+  api
+    .deleteCard({ cardId: selectedCardId })
+    .then((res) => {
+      if (res.ok) {
+        selectedCard.remove();
+        closeModal(deleteConfig.deleteCardModal);
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .catch((err) => console.error(err))
+    .finally(() => {
+      changeTextOnSubmission(
+        deleteConfig.deleteCardSubmitButton,
+        false,
+        "Deleting...",
+        "Delete"
+      );
+    });
 };
 
-//open the edit avatar modal on edit avatar button click
 profileConfig.editAvatarButton.addEventListener("click", () => {
   openModal(profileConfig.editAvatarModal);
 });
@@ -123,7 +178,6 @@ profileConfig.editAvatarForm.addEventListener(
   handleChangeAvatarSubmission
 );
 
-//open the edit profile modal on edit button click
 profileConfig.editProfileButton.addEventListener("click", () => {
   openModal(profileConfig.editProfileModal);
   resetValidation(
@@ -141,24 +195,20 @@ profileConfig.editProfileButton.addEventListener("click", () => {
   );
 });
 
-//change the page text on form submission
 profileConfig.profileForm.addEventListener(
   "submit",
   handleProfileFormSubmission
 );
 
-//open the new post modal on edit button click
 newPostConfig.newPostButton.addEventListener("click", () => {
   openModal(newPostConfig.newPostModal);
 });
 
-//save the changes and display them on the page
 newPostConfig.addCardForm.addEventListener(
   "submit",
   handleNewPostFormSubmission
 );
 
-//delete the card from the
 deleteConfig.deleteCardForm.addEventListener("submit", handleDeleteSubmission);
 deleteConfig.deleteCardForm.addEventListener("reset", () =>
   closeModal(deleteConfig.deleteCardModal)

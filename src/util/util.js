@@ -155,3 +155,16 @@ export const getCardElement = (data, api) => {
 
   return cardElement;
 };
+
+export const changeTextOnSubmission = (
+  button,
+  isLoading,
+  newText,
+  defaultText
+) => {
+  if (isLoading) {
+    button.textContent = newText;
+  } else {
+    button.textContent = defaultText;
+  }
+};
