@@ -7,6 +7,13 @@ class Api {
     };
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
   _initializeRequest() {
     return fetch(`${this._baseUrl}${this._endpoint}`, {
       method: this._method,
@@ -25,7 +32,7 @@ class Api {
   //get user information
   getUserInfo() {
     this._generateRequestOptions({ endpoint: "/users/me", method: "GET" });
-    return this._initializeRequest();
+    return this._initializeRequest().then(this._checkResponse);
   }
 
   //update profile information
@@ -35,7 +42,7 @@ class Api {
       method: "PATCH",
       body: { name, about },
     });
-    return this._initializeRequest();
+    return this._initializeRequest().then(this._checkResponse);
   }
 
   //update profile picture
@@ -47,7 +54,7 @@ class Api {
         avatar,
       },
     });
-    return this._initializeRequest();
+    return this._initializeRequest().then(this._checkResponse);
   }
 
   /* CARD ROUTES */
@@ -57,7 +64,7 @@ class Api {
       endpoint: "/cards",
       method: "GET",
     });
-    return this._initializeRequest();
+    return this._initializeRequest().then(this._checkResponse);
   }
 
   //create a card
@@ -67,7 +74,7 @@ class Api {
       method: "POST",
       body: { name, link },
     });
-    return this._initializeRequest();
+    return this._initializeRequest().then(this._checkResponse);
   }
 
   //delete a card
@@ -76,7 +83,7 @@ class Api {
       endpoint: `/cards/${cardId}`,
       method: "DELETE",
     });
-    return this._initializeRequest();
+    return this._initializeRequest().then(this._checkResponse);
   }
 
   //add a like to a card
@@ -85,7 +92,7 @@ class Api {
       endpoint: `/cards/${cardId}/likes`,
       method: "PUT",
     });
-    return this._initializeRequest();
+    return this._initializeRequest().then(this._checkResponse);
   }
 
   //remove a like from a card
@@ -94,7 +101,7 @@ class Api {
       endpoint: `/cards/${cardId}/likes`,
       method: "DELETE",
     });
-    return this._initializeRequest();
+    return this._initializeRequest().then(this._checkResponse);
   }
 }
 

@@ -129,17 +129,11 @@ export const getCardElement = (data, api) => {
     data.isLiked
       ? api
           .deleteLike({ cardId: data._id })
-          .then(likeButton.classList.toggle("card__like-button_active"))
+          .then(() => likeButton.classList.toggle("card__like-button_active"))
           .catch((err) => console.error(err))
       : api
           .addLike({ cardId: data._id })
-          .then((res) => {
-            if (res.ok) {
-              return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-          })
-          .then(likeButton.classList.toggle("card__like-button_active"))
+          .then(() => likeButton.classList.toggle("card__like-button_active"))
           .catch((err) => console.error(err));
   });
 
@@ -156,15 +150,34 @@ export const getCardElement = (data, api) => {
   return cardElement;
 };
 
-export const changeTextOnSubmission = (
-  button,
+const renderLoading = (
   isLoading,
-  newText,
-  defaultText
+  button,
+  buttonText = "Save",
+  loadingText = "Saving..."
 ) => {
   if (isLoading) {
-    button.textContent = newText;
+    button.textContent = loadingText;
   } else {
-    button.textContent = defaultText;
+    button.textContent = buttonText;
   }
+};
+
+export const handleSubmit = (request, e, loadingText = "Saving...") => {
+  e.preventDefault();
+
+  const submitButton = e.submitter;
+
+  const initialText = submitButton.textContent;
+
+  renderLoading(true, submitButton, initialText, loadingText);
+
+  request()
+    .then(() => {
+      e.target.reset();
+    })
+    .catch(console.error)
+    .finally(() => {
+      renderLoading(false, submitButton, initialText);
+    });
 };

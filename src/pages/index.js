@@ -19,7 +19,7 @@ import {
   deleteConfig,
   setModalEventListeners,
   setImageAttributes,
-  changeTextOnSubmission,
+  handleSubmit,
 } from "../util/util.js";
 import Api from "../components/Api.js";
 import "./index.css";
@@ -34,139 +34,80 @@ const api = new Api({
   contentType: "application/json",
 });
 
-const handleProfileFormSubmission = (e) => {
+const handleProfileFormSubmit = (e) => {
   e.preventDefault();
-  changeTextOnSubmission(
-    profileConfig.editProfileSubmitButton,
-    true,
-    "Saving...",
-    "Save"
-  );
-  api
-    .updateProfileInfo({
-      name: profileConfig.profileNameInput.value,
-      about: profileConfig.jobInput.value,
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then((data) => {
-      changeProfileInfo(data, profileConfig);
-      closeModal(profileConfig.editProfileModal);
-    })
-    .catch((err) => console.error(err))
-    .finally(() => {
-      changeTextOnSubmission(
-        profileConfig.editProfileSubmitButton,
-        false,
-        "Saving...",
-        "Save"
-      );
-    });
+
+  const makeRequest = () => {
+    return api
+      .updateProfileInfo({
+        name: profileConfig.profileNameInput.value,
+        about: profileConfig.jobInput.value,
+      })
+      .then((data) => {
+        changeProfileInfo(data, profileConfig);
+        closeModal(profileConfig.editProfileModal);
+      });
+  };
+
+  handleSubmit(makeRequest, e);
 };
 
-const handleChangeAvatarSubmission = (e) => {
+const handleChangeAvatarSubmit = (e) => {
   e.preventDefault();
-  changeTextOnSubmission(
-    profileConfig.editAvatarSubmitButton,
-    true,
-    "Saving...",
-    "Save"
-  );
-  api
-    .updateAvatar({ avatar: profileConfig.editAvatarInput.value })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then(() => {
-      setImageAttributes(profileConfig.profilePictureElement, {
-        link: profileConfig.editAvatarInput.value,
-        name: "Profile Picture",
+
+  const makeRequest = () => {
+    return api
+      .updateAvatar({ avatar: profileConfig.editAvatarInput.value })
+      .then(() => {
+        setImageAttributes(profileConfig.profilePictureElement, {
+          link: profileConfig.editAvatarInput.value,
+          name: "Profile Picture",
+        });
+        profileConfig.editAvatarForm.reset();
+        disableButton(
+          profileConfig.editAvatarSubmitButton,
+          config.inactiveButtonClass
+        );
+        closeModal(profileConfig.editAvatarModal);
       });
-      profileConfig.editAvatarForm.reset();
-      closeModal(profileConfig.editAvatarModal);
-    })
-    .catch((err) => console.error(err))
-    .finally(() => {
-      changeTextOnSubmission(
-        profileConfig.editAvatarSubmitButton,
-        false,
-        "Saving...",
-        "Save"
-      );
-    });
+  };
+
+  handleSubmit(makeRequest, e);
 };
 
 const handleNewPostFormSubmission = (e) => {
   e.preventDefault();
-  changeTextOnSubmission(
-    newPostConfig.addCardSubmitButton,
-    true,
-    "Saving...",
-    "Save"
-  );
-  api
-    .createCard({
-      name: newPostConfig.captionInput.value,
-      link: newPostConfig.linkInput.value,
-    })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then((data) => {
-      renderCard(data, cardConfig.cardsContainer, api);
-      newPostConfig.addCardForm.reset();
-      disableButton(
-        newPostConfig.addCardSubmitButton,
-        config.inactiveButtonClass
-      );
-      closeModal(newPostConfig.newPostModal);
-    })
-    .finally(() => {
-      changeTextOnSubmission(
-        newPostConfig.addCardSubmitButton,
-        false,
-        "Saving...",
-        "Save"
-      );
-    });
+
+  const makeRequest = () => {
+    return api
+      .createCard({
+        name: newPostConfig.captionInput.value,
+        link: newPostConfig.linkInput.value,
+      })
+      .then((data) => {
+        renderCard(data, cardConfig.cardsContainer, api);
+        newPostConfig.addCardForm.reset();
+        disableButton(
+          newPostConfig.addCardSubmitButton,
+          config.inactiveButtonClass
+        );
+        closeModal(newPostConfig.newPostModal);
+      });
+  };
+
+  handleSubmit(makeRequest, e);
 };
 
 const handleDeleteSubmission = (e) => {
   e.preventDefault();
-  changeTextOnSubmission(
-    deleteConfig.deleteCardSubmitButton,
-    true,
-    "Deleting...",
-    "Delete"
-  );
-  api
-    .deleteCard({ cardId: selectedCardId })
-    .then((res) => {
-      if (res.ok) {
-        selectedCard.remove();
-        closeModal(deleteConfig.deleteCardModal);
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .catch((err) => console.error(err))
-    .finally(() => {
-      changeTextOnSubmission(
-        deleteConfig.deleteCardSubmitButton,
-        false,
-        "Deleting...",
-        "Delete"
-      );
-    });
+
+  const makeRequest = () => {
+    return api
+      .deleteCard({ cardId: selectedCardId })
+      .then(() => selectedCard.remove());
+  };
+
+  handleSubmit(makeRequest, e, "Deleting...");
 };
 
 profileConfig.editAvatarButton.addEventListener("click", () => {
@@ -175,7 +116,7 @@ profileConfig.editAvatarButton.addEventListener("click", () => {
 
 profileConfig.editAvatarForm.addEventListener(
   "submit",
-  handleChangeAvatarSubmission
+  handleChangeAvatarSubmit
 );
 
 profileConfig.editProfileButton.addEventListener("click", () => {
@@ -195,10 +136,7 @@ profileConfig.editProfileButton.addEventListener("click", () => {
   );
 });
 
-profileConfig.profileForm.addEventListener(
-  "submit",
-  handleProfileFormSubmission
-);
+profileConfig.profileForm.addEventListener("submit", handleProfileFormSubmit);
 
 newPostConfig.newPostButton.addEventListener("click", () => {
   openModal(newPostConfig.newPostModal);
@@ -219,12 +157,6 @@ setModalEventListeners();
 
 api
   .getUserInfo()
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Error: ${res.status}`);
-  })
   .then((data) => {
     handleLoadProfileInfo(data, profileConfig);
   })
@@ -234,12 +166,6 @@ api
 
 api
   .getCards()
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Error: ${res.status}`);
-  })
   .then((data) => {
     if (!data.length) {
       return console.log("no cards found");
@@ -247,6 +173,7 @@ api
     data.forEach((card) => {
       renderCard(card, cardConfig.cardsContainer, api);
     });
-  });
+  })
+  .catch((err) => console.error(err));
 
 enableValidation(config);

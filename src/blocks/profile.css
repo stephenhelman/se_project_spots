@@ -154,6 +154,7 @@
     left: 52px;
     width: 23.34px;
     height: 23.34px;
+    padding: 0;
   }
 
   .profile__avatar-button::after {
