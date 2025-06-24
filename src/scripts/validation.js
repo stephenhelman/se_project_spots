@@ -33,12 +33,12 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const disableButton = (button, inactiveButtonClass) => {
+export const disableButton = (button, inactiveButtonClass) => {
   button.classList.add(inactiveButtonClass);
   button.disabled = true;
 };
 
-const enableButton = (button, inactiveButtonClass) => {
+export const enableButton = (button, inactiveButtonClass) => {
   button.classList.remove(inactiveButtonClass);
   button.disabled = false;
 };
@@ -65,7 +65,7 @@ const setEventListeners = (formElement, settings) => {
   });
 };
 
-const enableValidation = (settings) => {
+export const enableValidation = (settings) => {
   const { formSelector, fieldsetSelector } = settings;
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
@@ -83,16 +83,17 @@ const enableValidation = (settings) => {
   });
 };
 
-const resetValidation = (formElement, settings) => {
+export const resetValidation = (formElement, settings, submitButton) => {
   const inputList = Array.from(
     formElement.querySelectorAll(settings.inputSelector)
   );
   inputList.forEach((input) => {
     hideInputError(formElement, input, settings);
   });
+  enableButton(submitButton, config.inactiveButtonClass);
 };
 
-const config = {
+export const config = {
   formSelector: ".modal__form",
   fieldsetSelector: ".modal__fieldset",
   inputSelector: ".modal__input",
